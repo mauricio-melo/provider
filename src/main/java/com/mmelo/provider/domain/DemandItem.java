@@ -7,26 +7,27 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "provider")
-public class Provider {
+@Table(name = "demand_item")
+public class DemandItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idt_provider")
+    @Column(name = "idt_demand_item")
     private Long id;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "quantity")
+    private Integer quantity;
 
-    @Column(name = "address")
-    private String address;
+    @ManyToOne
+    @JoinColumn(name = "idt_product")
+    private Product product;
 
-    @Column(name = "state")
-    private String state;
+    @ManyToOne
+    @JoinColumn(name = "idt_demand")
+    private Demand demand;
 }

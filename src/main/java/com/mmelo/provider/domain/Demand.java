@@ -1,32 +1,32 @@
 package com.mmelo.provider.domain;
 
+import com.mmelo.provider.enumerators.DemandStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-
+import java.util.List;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "provider")
-public class Provider {
+@Table(name = "demand")
+public class Demand {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idt_provider")
+    @Column(name = "idt_demand")
     private Long id;
 
-    @Column(name = "name")
-    private String name;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    private DemandStatus status;
 
-    @Column(name = "address")
-    private String address;
-
-    @Column(name = "state")
-    private String state;
+    @OneToMany(mappedBy = "demand")
+    private List<DemandItem> demandItems;
 }
+

@@ -25,14 +25,8 @@ public class DemandController {
     private final DemandService service;
 
     @PostMapping(consumes = APPLICATION_JSON_VALUE)
-    public ResponseEntity<DemandDTO> doDemand(@RequestBody final List<DemandItemRequestDTO> itens) {
-        final DemandDTO entity = service.doDemand(itens);
-        final URI uri = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(entity.getId())
-                .toUri();
-        return ResponseEntity.created(uri).build();
+    public DemandDetailsDTO doDemand(@RequestBody final List<DemandItemRequestDTO> itens) {
+        return service.doDemand(itens);
     }
 
     @GetMapping(path = "/{id}", produces = APPLICATION_JSON_VALUE)

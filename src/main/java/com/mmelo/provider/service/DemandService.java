@@ -24,13 +24,13 @@ public class DemandService {
     private final ModelMapper modelMapper;
 
     @Transactional
-    public DemandDTO doDemand(final List<DemandItemRequestDTO> itens) {
+    public DemandDetailsDTO doDemand(final List<DemandItemRequestDTO> itens) {
         final Demand demand = repository.save(Demand.builder()
                 .status(DemandStatus.RECEIVED)
                 .build());
         final DemandDTO demandDTO = modelMapper.map(demand, DemandDTO.class);
         demandItemService.save(itens, demandDTO);
-        return demandDTO;
+        return findDemandDetails(demandDTO.getId());
     }
 
     public DemandDTO findById(final Long id) {
